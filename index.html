@@ -1,149 +1,234 @@
-<！doctype html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CPM谢余工作室 king解锁工具</title>
-    <style>
-        身体 { 字体系列: "微软雅黑", 无衬线; 最大宽度: 800PX; 边缘: 0 自动; 填充: 20PX; 背景：#f5f5f5；}
-        .容器 { 背景: 白色的; 填充: 30PX; 边界半径: 10PX; 箱形阴影: 0 2PX 10PX RGBA(0,0,0,0.1); }
-        .输入组 { 底边距: 20PX; }
-        输入 { 宽度: 100%; 填充: 10PX; 上边距: 5PX; 边境: 1PX 固体#ddd；边界半径: 5PX; }
-        按钮 { 背景：#4CAF50；颜色: 白色的; 边境: 没有一个; 填充: 12PX 20PX; 边界半径: 5PX; 光标: 指针; 宽度: 100%; 字体大小: 16PX; }
-        按钮:盘旋 { 背景：#45a049；}
-        .日志框 { 上边距: 20PX; 填充: 15PX; 背景：#2d2d2d；颜色：#fff；边界半径: 5PX; 高度: 300PX; 溢流y: 自动; 字体系列: 等宽; }
-        .消息 { 上边距: 10PX; 填充: 10PX; 边界半径: 5PX; 显示: 没有一个; }
-        .成功 { 背景：#dff0d8；颜色：#3c763d；}
-        .误差 { 背景：#f2dede；颜色：#a94442；}
-    </style>
+<!DOCTYPE html>
+<超文本标记语言 朗="zh-CN">
+<头>
+<元 字符集="UTF-8">
+<元 姓名="视口" 内容="width=device-width,initial-scale=1.0">
+<标题>CPM 工具箱</标题>
+<风格>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"PingFang SC","Microsoft YaHei",sans-serif}
+身体{background:#0a0a0a;color:#00f0d0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:15px}
+.容器{background:#0f1419;width:100%;max-width:420px;padding:30px 20px;border-radius:20px;box-shadow:0 0 30px rgba(0,240,208,0.15);border:1px solid rgba(0,240,208,0.2);position:relative}
+.容器::before{内容:"";position:absolute;top:60px;left:20px;right:20px;height:2px;background:linear-gradient(90deg,transparent,#00f0d0,transparent)}
+.标题{text-align:center;font-size:32px;font-weight:900;margin-bottom:30px;color:#00f0d0;letter-spacing:2px;text-shadow:0 0 8px rgba(0,240,208,0.6)}
+.author{text-align:center;font-size:12px;color:#00a090;margin-bottom:30px;line-height:1.4;opacity:.8}
+.页{display:none;animation:fadeIn .3s ease forwards}
+.页.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.input-box{margin-bottom:20px}
+.input-box 标签{display:block;margin-bottom:8px;font-size:14px;color:#00f0d0;font-weight:500}
+.input-box 输入{width:100%;padding:14px 16px;background:#121a20;border:1px solid rgba(0,240,208,0.3);border-radius:16px;color:#00f0d0;outline:none;font-size:15px;transition:.2s}
+.input-box 输入:focus{border-color:#00f0d0;box-shadow:0 0 10px rgba(0,240,208,0.2)}
+.btn{width:100%;padding:15px;background:#00f0d0;border:none;border-radius:16px;color:#0a0a0a;font-weight:bold;font-size:15px;margin-top:10px;cursor:pointer;transition:.2s;box-shadow:0 0 12px rgba(0,240,208,0.3)}
+.btn:hover{background:#00d0b0;transform:translateY(-1px);box-shadow:0 0 16px rgba(0,240,208,0.5)}
+.btn-gray{background:#121a20;color:#00f0d0;border:1px solid rgba(0,240,208,0.3);box-shadow:none}
+.btn-gray:hover{background:#162028;border-color:#00f0d0}
+.btn-small{padding:8px 12px;font-size:12px;margin-top:0}
+.func{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:25px}
+.func 按钮{padding:12px;background:#121a20;border:1px solid rgba(0,240,208,0.3);border-radius:14px;color:#00f0d0;font-size:14px;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
+.func 按钮::after{内容:"";position:absolute;bottom:0;left:0;right:0;height:1px;background:repeating-linear-gradient(90deg,#00f0d0,#00f0d0 4px,transparent 4px,transparent 8px);opacity:.5}
+.func 按钮:hover{background:#00f0d0;color:#0a0a0a;border-color:#00f0d0}
+.funcContent{animation:fadeIn .25s ease}
+.日志框{margin-top:25px;padding:15px;background:#121a20;border-radius:14px;min-height:80px;font-size:14px;line-height:1.5;border:1px solid rgba(0,240,208,0.2);position:relative}
+.日志框::after{内容:"";position:absolute;top:0;left:0;right:0;bottom:0;border:1px dashed rgba(0,240,208,0.15);border-radius:14px;pointer-events:none}
+.card-item{padding:10px;background:#121a20;border:1px solid rgba(0,240,208,0.2);border-radius:10px;margin-bottom:8px;font-size:13px;display:flex;justify-content:space-between;align-items:center}
+.card-used{color:#ff4060}
+.card-expired{color:#ffaa00}
+.card-valid{color:#00f0a0}
+.成功{color:#00f0a0;font-weight:500}
+.error{color:#ff4060;font-weight:500}
+.info{color:#00f0d0;font-weight:500}
+</风格>
 </头>
-<body>
-    <div class="container">
-        <h1>CPM谢余工作室 king解锁工具</h1>
-        
-        <! -- 登录区域 -->
-        <div id="login-area">
-            <h3>请先登录</h3>
-            <div class="input-group">
-                <label>邮箱</label>
-                <input type="email" id="email" value="572991055@qq.com">
-            </div>
-            <div class="input-group">
-                <label>密码</label>
-                <input type="password" id="password" placeholder="输入密码">
-            </div>
-            <button onclick="登录()">登录</按钮>
-            <div id="login-msg" class="message"></div>
-        </div>
+<身体>
+<div 班级="容器">
+  <div 班级="title">CPM 工具箱</div>
+  <div 班级="author">作者：谢余 2573729818<br>版本 3.0｜功能：刷皇冠+改账号+重置密码+找回密码</div>
 
-        <! -- 解锁成就区域（登录后显示） -->
-        <div id="unlock-area" style="显示: 没有一个;">
-            <h3>成就操作</h3>
-            <button onclick="unlockAllAchievements()">解锁所有成就</按钮>
-            <div id="unlock-msg" class="message"></div>
-        </div>
+  <div 班级="page active" 身份标识="cardPage">
+    <div 班级="input-box"><标签>卡密</标签><输入 身份标识="卡片密钥" 占位符="请输入卡密（格式：XXXX-XXXX-XXXX）"></div>
+    <按钮 班级="btn" onClick="run(0)">验证卡密</按钮>
+    <按钮 班级="btn btn-gray" onClick="run(1)">管理员入口</按钮>
+  </div>
 
-        <! -- 日志区域 -->
-        <div class="log-box">
-            <div id="log">加载中...</div>
-        </div>
+  <div 班级="page" 身份标识="adminPage">
+    <div 班级="input-box"><标签>管理员密码</标签><输入 类型="密码" 身份标识="admin_pwd" 占位符="请输入管理员密码"></div>
+    <按钮 班级="btn" onClick="run(2)">验证管理员</按钮>
+    <button class="btn btn-gray" onclick="run(3)">返回</button>
+  </div>
+
+  <div class="page" id="genCardPage">
+    <div class="input-box"><label>生成数量</label><input type="number" id="gen_count" value="1" min="1"></div>
+    <div class="input-box"><label>有效期（天）</label><input type="number" id="gen_days" value="30" min="1"></div>
+    <button class="btn" onclick="run(4)">生成卡密</button>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-gray" style="flex:1" onclick="run(5)">卡密管理</button>
+      <button class="btn btn-gray" style="flex:1" onclick="run(6)">退出管理</button>
     </div>
+    <div class="log-box" id="genLog" style="margin-top:15px;min-height:60px"></div>
+  </div>
 
-    <script>
-        //后端API地址(Render部署后自动适配同域名，无需修改）
-        Const API_BASE='';
+  <div class="page" id="manageCardPage">
+    <div style="display:flex;gap:10px;margin-bottom:15px">
+      <button class="btn" style="flex:1" onclick="run(7)">导出卡密</button>
+      <button class="btn btn-gray" onclick="run(8)">清空全部</button>
+    </div>
+    <div id="cardList" style="max-height:300px;overflow-y:auto;padding-right:5px"></div>
+    <div style="display:flex;gap:10px;margin-top:10px">
+      <button class="btn btn-gray" style="flex:1" onclick="run(9)">生成卡密</button>
+      <button class="btn btn-gray" onclick="run(10)">退出管理</button>
+    </div>
+  </div>
 
-        // 日志显示函数
-        功能 addLog(文本) {
-            Const Logel=文件.getElementById('日志');
-            Const 时间=新的 日期().toLocaleTimeString();
-            Logel.innerHTML+='<div>[${时间}] ${文本}</div> += 
-            Logel.scrollTop=Logel.scrollHeight;
-        }
+  <div class="page" id="loginPage">
+    <div class="input-box"><label>邮箱</label><input id="login_email" placeholder="请输入登录邮箱"></div>
+    <div class="input-box"><label>密码</label><input type="password" id="login_pwd" placeholder="请输入密码"></div>
+    <button class="btn" onclick="run(11)">登录账号</button>
+    <button class="btn btn-gray" onclick="run(12)">忘记密码</button>
+  </div>
 
-        // 登录功能
-        异步 功能 登录() {
-            Const 电子邮件=文件.getElementById('电子邮件').价值;
-            Const 密码=文件.getElementById('密码').价值;
-            Const msgEl=文件.getElementById('login-msg');
+  <div class="page" id="funcPage">
+    <div class="func">
+      <button onclick="run(13)">刷皇冠</button>
+      <button onclick="run(14)">改邮箱</button>
+      <button onclick="run(15)">改密码</button>
+    </div>
+    <div id="crown" class="funcContent"><button class="btn" onclick="run(16)">一键刷皇冠等级</button></div>
+    <div id="email" class="funcContent" style="display:none;">
+      <div class="input-box"><label>新邮箱</label><input id="new_email" placeholder="请输入新邮箱"></div>
+      <button class="btn" onclick="run(17)">修改邮箱</button>
+    </div>
+    <div id="pwd" class="funcContent" style="display:none;">
+      <div class="input-box"><label>新密码</label><input type="password" id="new_pwd" placeholder="至少6位"></div>
+      <button class="btn" onclick="run(18)">修改密码</button>
+    </div>
+  </div>
 
-            尝试 {
-                addLog('开始登录...');
-                Const 响应=等候 取来(`${API_BASE}/login', {
-                    方法: 'POST',
-                    页眉: { '内容类型': '应用程序/json' },
-                    身体: JSON.使字符串化({ 电子邮件, 密码 })
-                });
+  <div class="page" id="forgetPage">
+    <div class="input-box"><label>输入邮箱</label><input id="fg_email" placeholder="接收重置邮件"></div>
+    <button class="btn" onclick="run(19)">发送重置邮件</button>
+    <button class="btn btn-gray" onclick="run(20)">返回登录</button>
+  </div>
 
-                Const 数据=等候 响应.JSON();
-                如果 (!响应.好的) 扔 新的 误差(数据.细节||'登录失败');
+  <div class="log-box" id="log"></div>
+</div>
 
-                localStorage.setitem('令牌', 数据.令牌);
-                addLog('登录成功！');
-                msgEl.className='消息成功';
-                msgEl.textContent='登录成功！';
-                msgEl.风格.显示='块';
-                文件.getElementById('解锁区域').风格.显示='块';
+<script>
+const ADMIN_PASSWORD = "XYB829818";
+let isAdmin=假的;
+let 卡片=JSON.parse(localStorage.getItem("cpm_cards")) || [];
+Const logBox=文件.getElementById("日志");
 
-            } 赶上 (犯错) {
-                addLog(`登录失败：${犯错.消息}`);
-                msgEl.className='消息错误';
-                msgEl.textContent=犯错.消息;
-                msgEl.风格.显示='块';
-            }
-        }
+Const pageIds={
+  0: "cardPage", 1: "adminPage", 2: "genCardPage", 3: "manageCardPage",
+  4: "loginPage", 5: "funcPage", 6: "forgetPage", 7: "crown", 8: "电子邮件", 9: "pwd"
+};
 
-        // 解锁成就功能
-        异步 功能 unlockAllAchievements() {
-            Const 令牌=localStorage.getitem('令牌');
-            Const msgEl=文件.getElementById('unlock-msg');
-            如果 (!令牌) {
-                addLog('请先登录！');
-                返回;
-            }
+function showpage(idx) {
+  文件.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  Const el=文件.getElementById(pageIds[idx]);
+  如果 (el) el.classList.add("active");
+  如果 (idx===3) renderCardList();
+}
 
-            尝试 {
-                addLog('开始解锁所有成就... ');
-                Const 响应=等候 取来(`${API_BASE}/proxy-unlock', {
-                    方法: 'POST',
-                    页眉: { 
-                        '内容类型': '应用程序/json',
-                        '授权': '承载器${令牌}`
-                    },
-                    身体: JSON.使字符串化({
-                        数据: JSON.使字符串化({
-                            RatingData: {
-                                T_distance: 2000000000, 时间: 2000000000, 速度横幅(_B): 2000000000,
-                                礼物: 2000000000, 宝藏: 2000000000, 汽车: 137, race_win: 999,
-                                级别: 82, 漂流: 2000000000, 跑: 2000000000, 警察: 2000000000,
-                                block_post: 2000000000, 不动产(_R): 12, 燃料: 2000000000,
-                                car_trade: 2000000000, car_exchange: 2000000000, burned_tire: 2000000000,
-                                car_fix: 2000000000, car_wash: 2000000000, 越野: 2000000000,
-                                乘客距离: 2000000000, 反应: 2000000000, 漂移最大值: 2000000000,
-                                出租车: 2000000000, 交付: 2000000000, 货物: 2000000000,
-                                俯卧撑(_U): 2000000000, 切片器切割(_C): 1, car_Collided: 2000, 新建类型(_T): 2000
-                            }
-                        })
-                    })
-                });
+功能showFunc(IDX函数showFunc(IDX){ {
+  文件.querySelectorAll(".funcContent").foreach(f为(让我=0；我<4；我++)r+=CS[数学.底板(数学.随机()*CS.长度)]；f.风格.显示="none");
+  康斯特尔=文件.getElementById(pageIds[IDX]);
+  如果 (埃尔)埃尔。风格.显示="块";
+}
 
-                Const 数据=等候 响应.JSON();
-                如果 (!响应.好的) 扔 新的 误差(数据.细节||'解锁失败');
+功能 显示(味精, 类型) {
+logbox.innerHTML='<div class="${类型}">${味精}</div>'；
+}
 
-                addLog('所有成就解锁成功！ ');
-                msgEl.className='消息成功';
-                msgEl.textContent='解锁成功！';
-                msgEl.风格.显示='块';
+logbox.innerHTML='<div class="${类型}">${味精}</div>'；
+Constcs="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"让r=“”；
+让r=“”；
+为(让我=0；我<4；我++)r+=CS[数学.底板(数学.随机()*CS.长度)]；(让我=0；我<4；我++)r+=CS[数学.底板(数学.随机()*CS.长度)]；
+r+="-"；"-"；"-"；"-"；
+为(让我=0；我<4；我++)r+=CS[数学.底板(数学.随机()*CS.长度)]；(让我=0；我<4；我++)r+=CS[数学.底板(数学.随机()*CS.长度)]；(让我=0；我<4；我++)r+=CS[数学.底板(数学.随机()*CS.长度)]；(让我=0；我<4；我++)r+=CS[数学.底板(数学.随机()*CS.长度)]；
+r+="-"；"-"；"-"；"-"；
+为(让我=0；我<4；我++)r+=CS[数学.底板(数学.随机()*CS.长度)]；(让我=0；我<4；我++)r+=CS[数学.底板(数学.随机()*CS.长度)]；(让我=0；我<4；我++)r+=CS[数学.底板(数学.随机()*CS.长度)]；(让我=0；我<4；我++)r+=CS[数学.底板(数学.随机()*CS.长度)]；
+  返回 r;
+}
 
-            } 赶上 (犯错) {
-                addLog(`解锁失败：${犯错.消息}`);
-                msgEl.className='消息错误';
-                msgEl.textContent=犯错.消息;
-                msgEl.风格.显示='块';
-            }
-        }
+函数renderCardList
+如果(！isAdmin){显示("❌ 无权限操作"，"误差")；返回；}
+Constel=
+如果(！卡片.长度){el.innerHTML='<div class="info">暂无卡密</div>'；返回；}(！卡片.长度){埃尔。innerHTML='<div class="info">暂无卡密</div>'；返回；}长度){埃尔。innerHTML='<div class="info">暂无卡密</div>'；返回；}(！卡片.长度){埃尔。innerHTML='<div class="info">暂无卡密</div>'；返回；}(！卡片.长度){埃尔。innerHTML='<div class="info">暂无卡密</div>'；返回；}长度){埃尔。innerHTML='<div class="info">暂无卡密</div>'；返回；}
+埃尔.innerHTML=
+埃尔.innerHTML=
+Constcls=c.used？"卡-习惯的"：经验？"卡-已过期“：”卡-有效的"；C。使用？”卡-习惯的"：经验？"卡-已过期“：”卡-有效的"；
+Consttxt=c.
+Consttime=新的日期
+'<div班级="card-item"><div>${c.钥匙}<br><small>${time}</small></div><div班级="${cls}">${txt}</div><按钮class="btn'btn-small'btn-gray"onclick="delCard(${i})">删除</按钮></div>})。参与(“”)；
+}).参与(“”)；参与(“”)；
+}
 
-        addLog('页面加载完成，请登录后解锁成就');
-    </script>
-</body>
+函数delCard(我){
+如果(！isAdmin)返回；
+卡片.
+localStorage。
+renderCardList()；
+}
+
+函数运行
+开关
+案例 0:
+Constk=文件.getElementById("卡片密钥")。价值.修剪()；
+案例
+如果(！卡){显示("卡密无效/已过期/已使用"，"误差")；返回；}(！卡){显示("卡密无效/已过期/已使用"，"误差")；返回；}
+卡片。习惯的=true；localStorage.setItem案例一：显示页面"CPM_cards”，JSON。使字符串化(卡片))；
+显示("✅ 验证成功"，"成功")；setTimeout(()=>showpage(4)，800)；
+      打破;
+案例一：显示页面(1)；打破；
+案例 2:
+Constp=
+如果(p===admin_PASSWORD){isAdmin=true；showpage(2)；显示("✅ 管理员登录成功"，"成功")；}
+其他
+      打破;
+案例三：show 页
+案例 4:
+如果(！isAdmin){显示("❌ 无权限"，"误差")；返回；}
+Constcnt=parseInt(文件.getElementById("gen_count")。价值)；
+康斯特日=parseInt(文件.getElementById("Gen_days")。价值)；
+如果(isNaN(CNT)||CNT<1||isNaN(天)||天<1){
+文件.getElementById("genLog").innerHTML='<div class="error">输入有效数量和天数</div>'；返回；
+}
+Constex=日期.现在()+天数*86400000；
+Constns=[]；
+为(让i=0；i<CNT；i++)NS.推({钥匙：generateCard()，expire:ex，used：假的})；
+卡片.推(。。。NS)；localStorage。setitem("cpm_cards"，JSON.Stringify(卡片))；
+文件.getElementById("genLog").innerHTML='<div class="success">生成：<br>${ns。地图(x=>x.钥匙).加入("<br>")}</div>'；
+      
+案例5:显示页(3)；打破；
+admin_PASSWORD
+p
+如果(！isAdmin)返回；
+Const内容=卡片.地图(c=>'${c.钥匙}|${新的日期(c.到期)。函数toLocaleString(){[本机代码]}()}|${c.是否已使用？"已使用"：c.expire<Date.now()？"已过期"："有效"}‘).加入("\n")；
+const斑点=新的斑点([内容]，{类型："文本/普通"})；
+ConstURL=URL.createObjectURL(斑点)；
+Const一个=文件.createElement("a")；
+一个.href=URL；一个.下载="cards.txt"；一个.点击()；URL.revokeObjectURL(URL)；
+显示("✅ 已导出"，"成功")；
+      打破;
+案例 8:
+如果(！isAdmin)返回；
+如果(确认("清空所有卡密？")){卡片=[]；localStorage.setItem("cpm_cards"，JSON.使字符串化(卡片))；renderCardList()；显示("✅ 已清空"，"成功")；}
+      打破;
+案例9:显示页(2)；打破；
+案例10:isAdmin=临时的；显示页(0)；打破；
+方案11：显示（“注册成功”，“成功”）；setTimeout(()=>{showpage(5)；showFunc(7)；}，600)；打破；
+案例12:显示页(6)；打破；
+案例13:showfunc(7)；打破；
+案例14:showfunc(8)；打破；
+案例15:showfunc(9)；打破；
+案例16：显示("🎉 刷皇冠完成(演示)"，"成功")；打破；
+案例17：显示("✅ 修改邮箱成功(演示)"，"成功")；打破；
+案例18：显示("✅ 修改密码成功(演示)"，"成功")；打破；
+案例19：显示("✅ 已发送重置邮件(演示)"，"成功")；打破；
+案例20:显示页(4)；打破；
+}
+}
+</剧本>/剧本>
+</身体>
 </超文本标记语言>
